@@ -14,8 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Call Workflow A
-        uses: ./.github/workflows/workflow-a.yml
+      - uses: ./.github/workflows/workflow-a.yml
           
       - name: Access TAG from Workflow A
         run: |
