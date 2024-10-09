@@ -1,0 +1,25 @@
+name: Workflow B
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  invoke_workflow_a:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Workflow A
+        uses: ./.github/workflows/workflow-a.yml
+
+          
+      - name: Access TAG from Workflow A
+        run: |
+            echo "TAG=${{ steps.invoke_workflow_a.outputs.tag }}" >> "$GITHUB_ENV"
+            echo "Fetching TAG from Workflow A"
+            echo "TAG from Workflow A: $TAG"
+
+      - name: Use TAG
+        run: |
+          echo "Using TAG: $TAG"

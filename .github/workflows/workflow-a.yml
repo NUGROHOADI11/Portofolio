@@ -1,0 +1,19 @@
+name: Workflow A
+
+on:
+  workflow_call:
+
+jobs:
+  create_tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate TAG
+        run: |
+          TAG="tag-$(date +'%Y%m%d%H%M%S')"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "tag=$TAG" >> $GITHUB_OUTPUT 
+
+      - name: Show TAG
+        run: |
+          echo "Generated TAG: $TAG"
