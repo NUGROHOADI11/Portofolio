@@ -1,9 +1,10 @@
 name: Workflow B
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Workflow A"]
+    types:
+      - completed
 
 jobs:
   invoke_workflow_a:
@@ -15,7 +16,6 @@ jobs:
 
       - name: Call Workflow A
         uses: ./.github/workflows/workflow-a.yml
-
           
       - name: Access TAG from Workflow A
         run: |
