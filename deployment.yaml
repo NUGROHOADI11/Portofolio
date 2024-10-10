@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spse-health-monitor
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spse-health-monitor
+  template:
+    metadata:
+      labels:
+        app: spse-health-monitor
+    spec:
+      containers:
+      - name: spse-health-monitor
+        image: asia-southeast2-docker.pkg.dev/spse-prod/spse-docker-repository/spse-health-monitor:latest 
+        env:
+        - name: REDIS_AUTH
+          valueFrom:
+            secretKeyRef:
+              name: redis-secret
+              key: redis-auth-value

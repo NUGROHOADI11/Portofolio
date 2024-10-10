@@ -10,7 +10,7 @@ on:
     workflows: ["Workflow A"]
     types:
       - completed
-      
+
 jobs:
   invoke_workflow_a:
     runs-on: ubuntu-latest
@@ -27,6 +27,11 @@ jobs:
             echo "TAG=${{ github.event.inputs.tag }}" >> "$GITHUB_ENV"
             echo "Fetching TAG from Workflow A"
             echo "TAG from Workflow A: $TAG"
+
+      - name: Update image tag in deployment.yaml
+        run: |
+          echo "Image Tag: $TAG "
+          sed -i "s|spse-health-monitor:latest|spse-health-monitor:$TAG |g" deployment.yaml
 
       - name: Use TAG
         run: |
