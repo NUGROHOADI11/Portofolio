@@ -6,7 +6,11 @@ on:
       tag:
         description: 'Docker image tag'
         required: true
-
+  workflow_run:
+    workflows: ["Workflow A"]
+    types:
+      - completed
+      
 jobs:
   invoke_workflow_a:
     runs-on: ubuntu-latest
